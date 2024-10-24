@@ -1,14 +1,23 @@
-"Ваш код повинен зробити PATCH-запит до вказаного URL, де {userId} – це ID існуючого користувача."
-"Для оновлення користувача передайте в запит нові дані, наприклад, нове ім’я."
-"Поверніть відповідь від сервера з оновленими даними користувача."
+"Ваш код повинен зробити PATCH-запит до вказаного URL, де {userId} – це ID існуючого користувача.";
+"Для оновлення користувача передайте в запит нові дані, наприклад, нове ім’я.";
+"Поверніть відповідь від сервера з оновленими даними користувача.";
 
-"https://jsonplaceholder.typicode.com/users - адреса куди робити запит"
-
+"https://jsonplaceholder.typicode.com/users - адреса куди робити запит";
 
 function updateUser(id, updatedData) {
-  // Ваш код
+  return fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Користувач успішно оновлений", data);
+      return data;
+    })
+    .catch((error) => console.error("Error:", error));
 }
 
-console.log(updateUser(1, { name: 'New Name' }));
+console.log(updateUser(1, { name: "New Name" }));
 
 module.exports = updateUser;
